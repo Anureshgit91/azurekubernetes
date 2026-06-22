@@ -17,7 +17,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Azure Login
       - name: Azure Login (OIDC)
         uses: azure/login@v2
         with:
@@ -25,7 +24,6 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # Terraform Setup
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
@@ -43,17 +41,17 @@ jobs:
           dir
           terraform version
           terraform plan -no-color
-        working-directory: terraform-modules
+        working-directory: terraform-modules/examples
 
-      # TFLint
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v4
 
       - name: Run TFLint
-        run: tflint --init && tflint
+        run: |
+          tflint --init
+          tflint
         working-directory: terraform-modules/examples
 
-      # TFSEC
       - name: Run tfsec security scan
         uses: aquasecurity/tfsec-action@v1.0.0
         with:
