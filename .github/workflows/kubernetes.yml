@@ -36,8 +36,15 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Verify Directory
+        run: |
+          pwd
+          dir
+          Get-ChildItem *.tf
+        working-directory: terraform-modules/examples
+
       - name: Terraform Init
-        run: terraform init -upgrade
+        run: terraform init -upgrade -no-color
         working-directory: terraform-modules/examples
 
       - name: Terraform Validate
@@ -47,13 +54,6 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -no-color
         working-directory: terraform-modules/examples
-
-        - name: Verify Directory
-          run: |
-               pwd
-               dir
-               Get-ChildItem *.tf 
-          working-directory: terraform-modules/examples
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
