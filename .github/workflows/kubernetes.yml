@@ -36,11 +36,7 @@ jobs:
         working-directory: terraform-modules/examples
 
       - name: Terraform Plan
-        run: |
-          pwd
-          dir
-          terraform version
-          terraform plan -no-color
+        run: terraform plan
         working-directory: terraform-modules/examples
 
       - name: Setup TFLint
