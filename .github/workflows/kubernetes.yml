@@ -13,6 +13,12 @@ jobs:
   terraform:
     runs-on: self-hosted
 
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_USE_OIDC: true
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -36,7 +42,7 @@ jobs:
         working-directory: terraform-modules/examples
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -no-color
         working-directory: terraform-modules/examples
 
       - name: Terraform Apply
