@@ -48,6 +48,13 @@ jobs:
         run: terraform plan -no-color
         working-directory: terraform-modules/examples
 
+        - name: Verify Directory
+          run: |
+               pwd
+               dir
+               Get-ChildItem *.tf 
+          working-directory: terraform-modules/examples
+
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
