@@ -17,6 +17,12 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
+
+    - name: Debug GitHub Context
+  run: |
+    echo "Repository: ${{ github.repository }}"
+    echo "Ref: ${{ github.ref }}"
+
     # -------------------- AZURE LOGIN --------------------
     - name: Azure Login (OIDC)
       uses: azure/login@v2
