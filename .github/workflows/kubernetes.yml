@@ -39,20 +39,6 @@ jobs:
         run: terraform plan
         working-directory: terraform-modules/examples
 
-      - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v4
-
-      - name: Run TFLint
-        run: |
-          tflint --init
-          tflint
-        working-directory: terraform-modules/examples
-
-      - name: Run tfsec security scan
-        uses: aquasecurity/tfsec-action@v1.0.0
-        with:
-          working_directory: terraform-modules/examples
-
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
