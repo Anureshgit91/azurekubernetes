@@ -32,19 +32,15 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
+      working-directory: terraform-modules
 
     - name: Terraform Validate
       run: terraform validate
+      working-directory: terraform-modules
 
     - name: Terraform Plan
       run: terraform plan
-
-    - name: Show Repository Files
-      run: |
-          pwd
-          ls -la
-          find . -type f
-          find . -name "*.tf"
+      working-directory: terraform-modules
       
 
     # -------------------- TFLINT --------------------
@@ -62,3 +58,4 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main'
       run: terraform apply -auto-approve
+      working-directory: terraform-modules
