@@ -41,21 +41,37 @@ jobs:
           pwd
           dir
           Get-ChildItem *.tf
+          terraform version
         working-directory: terraform-modules/examples
 
       - name: Terraform Init
-        run: terraform init -upgrade -no-color
+        run: |
+          terraform init -upgrade -no-color
+          Write-Host "INIT_EXIT_CODE=$LASTEXITCODE"
         working-directory: terraform-modules/examples
 
       - name: Terraform Validate
-        run: terraform validate
+        run: |
+          terraform validate -no-color
+          Write-Host "VALIDATE_EXIT_CODE=$LASTEXITCODE"
         working-directory: terraform-modules/examples
 
       - name: Terraform Plan
-        run: terraform plan -no-color
+        run: |
+          terraform plan -no-color -out=tfplan
+          Write-Host "PLAN_EXIT_CODE=$LASTEXITCODE"
+          dir
+        working-directory: terraform-modules/examples
+
+      - name: Show Terraform Plan
+        run: |
+          dir tfplan
+          terraform show -no-color tfplan
         working-directory: terraform-modules/examples
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
+        run: |
+          terraform apply -auto-approve tfplan
+          Write-Host "APPLY_EXIT_CODE=$LASTEXITCODE"
         working-directory: terraform-modules/examples
