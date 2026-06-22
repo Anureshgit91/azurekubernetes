@@ -232,7 +232,7 @@ module "aks" {
       # Nested default node pool configuration
       default_node_pool = {
         name                = "system"
-        vm_size             = "Standard_D2s_v5"
+        vm_size             = "Standard_D2s_v7"
         node_count          = 2
         min_count           = 2
         max_count           = 5
@@ -247,7 +247,7 @@ module "aks" {
       node_pools = {
         # Compute pool for general workloads
         compute = {
-          vm_size             = "Standard_D2s_v5"
+          vm_size             = "Standard_D2s_v7"
           node_count          = 3
           min_count           = 1
           max_count           = 10
@@ -419,7 +419,7 @@ module "aks" {
 
       default_node_pool = {
         name                = "default"
-        vm_size             = "Standard_D2s_v5"
+        vm_size             = "Standard_D2s_v7"
         node_count          = 1
         min_count           = 1
         max_count           = 3
@@ -431,7 +431,7 @@ module "aks" {
       # Minimal additional pools for dev
       node_pools = {
         workload = {
-          vm_size             = "Standard_D2s_v5"
+          vm_size             = "Standard_D2s_v7"
           node_count          = 1
           min_count           = 1
           max_count           = 2
@@ -481,7 +481,7 @@ module "aks" {
     dr = {
       resource_group_name = module.resource_groups.resource_group_names["secondary"]
       location            = var.secondary_location
-      kubernetes_version  = "1.27"
+      kubernetes_version  = null
 
       network_profile = {
         network_plugin      = "azure"
