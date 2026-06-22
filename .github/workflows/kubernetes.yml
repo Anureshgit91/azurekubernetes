@@ -38,6 +38,13 @@ jobs:
 
     - name: Terraform Plan
       run: terraform plan
+
+    - name: Show Repository Files
+      run: |
+          pwd
+          ls -la
+          find . -type f
+          find . -name "*.tf"
       
 
     # -------------------- TFLINT --------------------
