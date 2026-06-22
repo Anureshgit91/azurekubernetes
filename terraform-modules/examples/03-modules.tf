@@ -216,7 +216,7 @@ module "aks" {
     production = {
       resource_group_name = module.resource_groups.resource_group_names["core"]
       location            = var.location
-      kubernetes_version  = "1.27"
+      kubernetes_version  = "1.32.11"
 
       # Nested network profile
       network_profile = {
