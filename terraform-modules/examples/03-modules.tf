@@ -216,7 +216,7 @@ module "aks" {
     production = {
       resource_group_name = module.resource_groups.resource_group_names["core"]
       location            = var.location
-      kubernetes_version  = "1.32.11"
+      kubernetes_version  = "1.31.9"
 
       # Nested network profile
       network_profile = {
@@ -232,7 +232,7 @@ module "aks" {
       # Nested default node pool configuration
       default_node_pool = {
         name                = "system"
-        vm_size             = "Standard_D4s_v3"
+        vm_size             = "Standard_D2s_v5"
         node_count          = 2
         min_count           = 2
         max_count           = 5
@@ -247,7 +247,7 @@ module "aks" {
       node_pools = {
         # Compute pool for general workloads
         compute = {
-          vm_size             = "Standard_D4s_v3"
+          vm_size             = "Standard_D2s_v5"
           node_count          = 3
           min_count           = 1
           max_count           = 10
