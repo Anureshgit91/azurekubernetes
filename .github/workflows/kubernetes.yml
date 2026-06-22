@@ -2,8 +2,8 @@ name: Terraform CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
+    branches:
+      - main
 
 permissions:
   id-token: write
@@ -37,6 +37,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Verify Directory
+        shell: powershell
         run: |
           pwd
           dir
@@ -45,25 +46,25 @@ jobs:
         working-directory: terraform-modules/examples
 
       - name: Terraform Init
+        shell: powershell
         run: |
           terraform init -upgrade -no-color
-          Write-Host "INIT_EXIT_CODE=$LASTEXITCODE"
         working-directory: terraform-modules/examples
 
       - name: Terraform Validate
+        shell: powershell
         run: |
           terraform validate -no-color
-          Write-Host "VALIDATE_EXIT_CODE=$LASTEXITCODE"
         working-directory: terraform-modules/examples
 
       - name: Terraform Plan
+        shell: powershell
         run: |
           terraform plan -no-color -out=tfplan
-          Write-Host "PLAN_EXIT_CODE=$LASTEXITCODE"
-          dir
         working-directory: terraform-modules/examples
 
       - name: Show Terraform Plan
+        shell: powershell
         run: |
           dir tfplan
           terraform show -no-color tfplan
@@ -71,7 +72,7 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
+        shell: powershell
         run: |
           terraform apply -auto-approve tfplan
-          Write-Host "APPLY_EXIT_CODE=$LASTEXITCODE"
         working-directory: terraform-modules/examples
